@@ -1,0 +1,26 @@
+pkgname='python-pygments-hg'
+_repository_name='pygments-main'
+pkgrel=1
+pkgver=r4512.e79a7126551c
+arch=('any')
+provides=('python-pygments')
+conflicts=('python-pygments')
+makedepends=('mercurial' 'python-setuptools')
+depends=('python')
+source=("hg+https://bitbucket.org/birkenfeld/$_repository_name")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$_repository_name"
+  printf "r%s.%s" "$(hg identify -n)" "$(hg identify -i)"
+}
+
+build() {
+    cd "$srcdir/$_repository_name"
+    python setup.py build
+}
+
+package() {
+    cd "$srcdir/$_repository_name"
+    python setup.py install --root="$pkgdir" --optimize=2
+}

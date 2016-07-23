@@ -1,0 +1,26 @@
+pkgname='python-imgurpython-git'
+_repository_name='imgurpython'
+pkgrel=1
+pkgver=1.1.8.r0.g3a285f7
+arch=('any')
+provides=('python-imgurpython')
+conflicts=('python-imgurpython')
+makedepends=('git' 'python-setuptools')
+depends=('python' 'python-requests')
+source=("git+https://github.com/Imgur/$_repository_name.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_repository_name"
+  git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+    cd "$srcdir/$_repository_name"
+    python setup.py build
+}
+
+package() {
+    cd "$srcdir/$_repository_name"
+    python setup.py install --root="$pkgdir" --optimize=2
+}

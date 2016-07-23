@@ -1,0 +1,20 @@
+pkgname='sharey-git'
+_repository_name='sharey'
+pkgrel=1
+pkgver=r2.ce5f6f0
+arch=('any')
+provides=('sharey')
+conflicts=('sharey')
+depends=('python' 'spectacle' 'python-pydbus' 'python-pillow' 'python-imgurpython' 'xsel' 'python-pyperclip')
+source=("git+https://github.com/cryzed/$_repository_name.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_repository_name"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+    cd "$srcdir/$_repository_name"
+    install -D --mode 755 'sharey' "$pkgdir/usr/bin/sharey"
+}
