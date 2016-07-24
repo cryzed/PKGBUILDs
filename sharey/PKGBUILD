@@ -1,11 +1,16 @@
 pkgname='sharey-git'
 _repository_name='sharey'
 pkgrel=1
-pkgver=r2.ce5f6f0
+pkgver=r7.1fb6a73
 arch=('any')
 provides=('sharey')
 conflicts=('sharey')
 depends=('python' 'spectacle' 'python-pydbus' 'python-pillow' 'python-imgurpython' 'xsel' 'python-pyperclip')
+optdepends=('xclip: xclip clipboard-backend'
+            # Keep xsel as an explicit dependency for now
+            # 'xsel: xsel clipboard-backend'
+            'python-pyqt4: qt clipboard-backend'
+            'plasma-workspace: klipper clipboard-backend')
 source=("git+https://github.com/cryzed/$_repository_name.git")
 md5sums=('SKIP')
 
