@@ -1,0 +1,31 @@
+pkgname='suplemon-git'
+_repository_name='suplemon'
+pkgrel=1
+pkgver=0.1.53.r1.g00812cf
+arch=('any')
+provides=('suplemon')
+conflicts=('suplemon')
+makedepends=('git' 'python-setuptools')
+depends=('python')
+optdepends=(
+    'python-pygments: For support for syntax highlighting over 300 languages.'
+    'flake8: For showing linting for Python files.'
+    'xsel: For system clipboard support on X Window.'
+)
+source=("git+https://github.com/richrd/$_repository_name.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_repository_name"
+  git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+    cd "$srcdir/$_repository_name"
+    python setup.py build
+}
+
+package() {
+    cd "$srcdir/$_repository_name"
+    python setup.py install --root="$pkgdir" --optimize=2
+}
